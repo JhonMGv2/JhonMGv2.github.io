@@ -10,14 +10,6 @@ body {
     padding: 20px 0;
   }
   
-  #love-section, #memories-section, #funny-video-section {
-    padding: 40px;
-  }
-  
-  h1, h2 {
-    color: #e63946;
-  }
-  
   #map {
     height: 400px; /* Adjust height as needed */
     width: 100%; /* Make the map fill the entire width */
