@@ -1,17 +1,37 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Love Letter</title>
+  <title>Valentine's Love Story</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="love-letter">
-    <h1>To My Dearest...</h1>
-    <p class="handwritten">I just wanted to take a moment to express my love for you...</p>
-    <p class="handwritten">You mean everything to me, and I cherish every moment we spend together.</p>
-    <p class="handwritten">Happy Valentine's Day, my love!</p>
+  <div class="container">
+    <div class="page" id="page1">
+      <div class="love-letter">
+        <h1>To My Dearest...</h1>
+        <p class="handwritten">I just wanted to take a moment to express my love for you...</p>
+        <p class="handwritten">You mean everything to me, and I cherish every moment we spend together.</p>
+        <p class="handwritten">Happy Valentine's Day, my love!</p>
+      </div>
+      <button onclick="nextPage()">Next</button>
+    </div>
+
+    <div class="page" id="page2">
+      <div class="funny-page">
+        <h1>Our Funny Moments</h1>
+        <p>Remember the time when...</p>
+        <p>And then we...</p>
+        <p>Oh, we always have the best laughs together!</p>
+      </div>
+      <button onclick="prevPage()">Previous</button>
+      <button onclick="nextPage()">Next</button>
+    </div>
+
+    <!-- Add more pages here -->
+
   </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
