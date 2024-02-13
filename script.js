@@ -9,9 +9,9 @@ function confirmProceed() {
   }
   
   function nextPage() {
-    // Proceed to the next page
+    // Hide the current page
     document.getElementById('page1').style.display = 'none';
-    // Redirect to the next page or perform any other action
+    // Proceed to the next page or perform any other action
     // For now, let's just show an alert
     alert("Proceeding to the next page!");
   }
