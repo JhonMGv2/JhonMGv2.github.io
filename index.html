@@ -72,6 +72,43 @@
       font-size: 18px;
       font-weight: bold;
     }
+
+    .hangman-container {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .word-display {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .letters-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .letter {
+      width: 40px;
+      height: 40px;
+      border: 1px solid #ccc;
+      margin: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .letter.selected {
+      background-color: lightblue;
+    }
+
+    .letter.disabled {
+      background-color: #ccc;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
@@ -116,12 +153,102 @@
     <p>Designed with love by Bicho Bear</p>
   </footer>
 
+  <div class="hangman-container">
+    <div class="word-display" id="word-display"></div>
+    <div class="letters-container" id="letters-container"></div>
+    <div id="hangman-image"></div>
+    <div id="game-status"></div>
+  </div>
+
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="script.js"></script>
   <script>
     function showText(text) {
       var textDisplay = document.getElementById('text-display');
       textDisplay.textContent = text;
+    }
+
+    const words = ['LOVE', 'HEART', 'KISS', 'HUG', 'DATE']; // Words to choose from
+    let chosenWord = ''; // The word to guess
+    let guessedLetters = []; // Guessed letters
+    let hangmanImageCount = 0; // Counter for hangman image
+
+    // Select a random word from the words array
+    chosenWord = words[Math.floor(Math.random() * words.length)].toUpperCase();
+
+    // Display dashes representing each letter in the word
+    const wordDisplay = document.getElementById('word-display');
+    wordDisplay.textContent = chosenWord.replace(/[A-Z]/g, '_ ');
+
+    // Generate buttons for each letter of the alphabet
+    const lettersContainer = document.getElementById('letters-container');
+    for (let i = 65; i <= 90; i++) {
+      const letter = String.fromCharCode(i);
+      const button = document.createElement('div');
+      button.classList.add('letter');
+      button.textContent = letter;
+      button.addEventListener('click', () => selectLetter(letter));
+      lettersContainer.appendChild(button);
+    }
+
+    // Function to handle selecting a letter
+    function selectLetter(letter) {
+      if (!guessedLetters.includes(letter)) {
+        guessedLetters.push(letter);
+        const word = chosenWord.split('');
+        const wordDisplay = document.getElementById('word-display');
+        let newDisplay = '';
+        let correctGuess = false;
+
+        // Update word display with correctly guessed letters
+        for (let i = 0; i < word.length; i++) {
+          if (guessedLetters.includes(word[i])) {
+            newDisplay += word[i] + ' ';
+            correctGuess = true;
+          } else {
+            newDisplay += '_ ';
+          }
+        }
+
+        wordDisplay.textContent = newDisplay.trim();
+
+        // If the guess was incorrect, increment hangman image count
+        if (!correctGuess) {
+          hangmanImageCount++;
+          updateHangmanImage();
+        }
+
+        // Check if all letters have been guessed
+        if (newDisplay === chosenWord) {
+          endGame('You Win!');
+        }
+
+        // Check if the player has reached maximum hangman image count
+        if (hangmanImageCount === 6) {
+          endGame('You Lose!');
+        }
+
+        // Disable selected letter button
+        const selectedLetterButton = document.querySelector(`.letter[data-letter="${letter}"]`);
+        selectedLetterButton.classList.add('selected');
+        selectedLetterButton.classList.add('disabled');
+      }
+    }
+
+    // Function to update hangman image
+    function updateHangmanImage() {
+      const hangmanImage = document.getElementById('hangman-image');
+      hangmanImage.innerHTML = `<img src="hangman${hangmanImageCount}.png" alt="Hangman Image">`;
+    }
+
+    // Function to end the game
+    function endGame(message) {
+      const gameStatus = document.getElementById('game-status');
+      gameStatus.textContent = message;
+
+      // Disable all letter buttons
+      const letterButtons = document.querySelectorAll('.letter');
+      letterButtons.forEach(button => button.classList.add('disabled'));
     }
   </script>
 </body>
