@@ -109,6 +109,10 @@
       background-color: #ccc;
       pointer-events: none;
     }
+
+    #reset-button {
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -158,6 +162,7 @@
     <div class="letters-container" id="letters-container"></div>
     <div id="hangman-image"></div>
     <div id="game-status"></div>
+    <button id="reset-button" onclick="resetGame()">Reset Game</button>
   </div>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -168,7 +173,7 @@
       textDisplay.textContent = text;
     }
 
-    const words = ['LOVE', 'HEART', 'KISS', 'HUG', 'DATE']; // Words to choose from
+    const words = ['ICH LIEBE DICH ANH THU']; // Words to choose from
     let chosenWord = ''; // The word to guess
     let guessedLetters = []; // Guessed letters
     let hangmanImageCount = 0; // Counter for hangman image
@@ -249,6 +254,33 @@
       // Disable all letter buttons
       const letterButtons = document.querySelectorAll('.letter');
       letterButtons.forEach(button => button.classList.add('disabled'));
+    }
+
+    // Function to reset the game
+    function resetGame() {
+      // Reset variables
+      guessedLetters = [];
+      hangmanImageCount = 0;
+
+      // Reset word display
+      wordDisplay.textContent = chosenWord.replace(/[A-Z]/g, '_ ');
+
+      // Reset hangman image
+      updateHangmanImage();
+
+      // Reset game status
+      const gameStatus = document.getElementById('game-status');
+      gameStatus.textContent = '';
+
+      // Reset letter buttons
+      const letterButtons = document.querySelectorAll('.letter');
+      letterButtons.forEach(button => {
+        button.classList.remove('selected');
+        button.classList.remove('disabled');
+      });
+
+      // Select a new word
+      chosenWord = words[Math.floor(Math.random() * words.length)].toUpperCase();
     }
   </script>
 </body>
