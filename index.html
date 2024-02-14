@@ -20,8 +20,29 @@
   <section id="funny-video-section">
     <h2>Our Love Song</h2>
     <div class="video-container">
-      <iframe width="300" height="300" src="https://www.youtube.com/embed/cKIckYZ2dkM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      <iframe width="200" height="200" src="https://www.youtube.com/embed/cKIckYZ2dkM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
+  </section>
+
+  <section id="cat-picture-section">
+    <h2>Our Beloved Pets and Ourselves</h2>
+    <div class="pictures">
+      <div class="picture">
+        <img src="path_to_your_cat_image" alt="Your Cat" class="bordered-image">
+      </div>
+      <div class="picture">
+        <img src="path_to_her_cat_image" alt="Her Cat" class="bordered-image">
+      </div>
+      <div class="picture">
+        <img src="path_to_your_image" alt="Your Picture" class="bordered-image">
+      </div>
+    </div>
+    <div class="buttons">
+      <button onclick="showText('Your text here')">Your Text 1</button>
+      <button onclick="showText('Your text here')">Your Text 2</button>
+      <!-- Add more buttons as needed -->
+    </div>
+    <div id="text-display"></div>
   </section>
 
   <!-- Add more sections as needed -->
@@ -32,5 +53,11 @@
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="script.js"></script>
+  <script>
+    function showText(text) {
+      var textDisplay = document.getElementById('text-display');
+      textDisplay.textContent = text;
+    }
+  </script>
 </body>
 </html>
